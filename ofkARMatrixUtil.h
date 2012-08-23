@@ -21,14 +21,41 @@ class ofkARMatrixUtil{
 
 public:
     
+    static float virtualiPadSize;
+    static void setupvirtualiPadSize(float size)
+    {
+        virtualiPadSize = size;
+    }
+    
+    //get only Translation data matrix;
+    static ofMatrix4x4 createTransOnlyMatrix(ofMatrix4x4 mat)
+    {
+        ofMatrix4x4 returnMatrix;
+        returnMatrix.makeIdentityMatrix();
+        returnMatrix.getPtr()[12] = mat.getPtr()[12];
+        returnMatrix.getPtr()[13] = mat.getPtr()[13];
+        returnMatrix.getPtr()[14] = mat.getPtr()[14];
+        return returnMatrix;
+    }
+
+    static ofMatrix4x4 getDeviceMatrix(ofMatrix4x4 ARmodelViewMatrix)
+    {
+        float definedFrameWidth = virtualiPadSize;
+        float definedFrameHeight = virtualiPadSize * 3.0 / 4.0;
+        ofMatrix4x4 deviceMatrix = ARmodelViewMatrix.getInverse();
+        deviceMatrix.glTranslate(definedFrameWidth /2 , definedFrameHeight / 2, 0.0f);
+        return deviceMatrix;
+    }
+    
     static ofMatrix4x4 getWatchMatrix(ofMatrix4x4 ARmodelViewMatrix)
     {
-        ofMatrix4x4 wacthMatrix = ARmodelViewMatrix.getInverse();
+        ofMatrix4x4 virtualPlate = ARmodelViewMatrix.getInverse();
         
-        //maybe need some trans matrix
-        wacthMatrix.translate(0.0f, 0.0, 0.0f);
+        //This two number is trade off
+        virtualPlate.glTranslate(0, 0, 1.0f);
+        virtualPlate.glScale(0.65, 0.65, 0.65);            
 
-        return wacthMatrix;
+        return virtualPlate;
     }
     
     static ofVec3f getProjectionPoint(ofPoint FrameBufferPos, ofMatrix4x4 modelViewMatrix, ofMatrix4x4 projectoinMatrix)

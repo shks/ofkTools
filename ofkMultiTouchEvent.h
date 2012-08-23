@@ -1,12 +1,6 @@
-/*
- * ofxEventsAddon.h
- *
- *  Created on: 17-dic-2008
- *      Author: art
- */
 
-#ifndef OFXEVENTSADDON_H_
-#define OFXEVENTSADDON_H_
+#ifndef _ofkMultiTouchEvent_
+#define _ofkMultiTouchEvent_
 
 #include "ofMain.h"
 
@@ -42,16 +36,21 @@ class ofkMultiTouchEventArgs  : public ofEventArgs
 public:
     int time;
     float angle;
+    float angleDif;
     float pinchLength;
     float pinchLengthDif;
     float pinchLengthFromStart;
+    ofPoint centroidPos;
+    ofPoint centroidPosDif;
 };
 
 class ofkMultiTouchEvent{
     
 public:
-	ofkMultiTouchEvent(){
-	}
+	ofkMultiTouchEvent();
+    
+    //THIS FUNCTION can be override
+    virtual void setTouchPos(int index, float x, float y);
 
 	void enable(){
         //send touchDownEvent into touchDownMulti to check  multi touch Event
@@ -67,22 +66,31 @@ public:
         ofRemoveListener(ofEvents.touchUp, this, &ofkMultiTouchEvent::touchUpMulti);     
 	}
 
-    void touchDownMulti(ofTouchEventArgs &touch);
-    void touchMoveMulti(ofTouchEventArgs &touch);
-    void touchUpMulti(ofTouchEventArgs &touch);
+    virtual void touchDownMulti(ofTouchEventArgs &touch);
+    virtual void touchMoveMulti(ofTouchEventArgs &touch);
+    virtual void touchUpMulti(ofTouchEventArgs &touch);
     
 	ofEvent<ofkMultiTouchEventArgs> touchTwoFingerEvent;
     
-private:
+    void debugDraw();
+    
+protected:
+    
+    //calclate touch event and nofify event
+    // this function is actually most important
+    void calcAndNotifyTouchEvent();
     
     void changeFingerNumber();
     
     const static int TOUCHNUMMAX = 5;
-    ofVec2f mTouchPos[TOUCHNUMMAX];    
+    ofVec2f mTouchPos[TOUCHNUMMAX];  
+    int mCurrentTouchPointNum;
  
     ofVec2f mVecBetweenTwoFingerStart;
     ofVec2f mVecBetweenTwoFinger;
     ofVec2f mAvarageVector;
+    float mDegTwoFinger;
+    
     
 };
 

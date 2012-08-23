@@ -116,6 +116,7 @@ void ofkglImageRenderer::render()
     //MAYBE WE NEED CHECK THESE LOGIC 
     
     glPopMatrix();
+    glColor4f(1.0, 1.0, 1.0, 1.0);
 }
 
 
