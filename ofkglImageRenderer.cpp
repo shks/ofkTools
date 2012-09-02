@@ -58,7 +58,7 @@ void ofkglImageRenderer::render()
     //based on rect rendering mode
     if(rectMode == RECTMODE_CENTER)
     {
-        mImage.draw(-mWidth / 2.0f, -mHeight / 2.0f ,mWidth, mHeight);        
+        internalDraw(-mWidth / 2.0f, -mHeight / 2.0f ,mWidth, mHeight);        
    
     }else if(rectMode == RECTMODE_LEFTSIDE)
     {
@@ -73,11 +73,11 @@ void ofkglImageRenderer::render()
     
     }else if(rectMode == RECTMODE_LEFTBOTTOM)
     {
-       mImage.draw(0.0f, 0.0f ,mWidth, mHeight); 
+       internalDraw(0.0f, 0.0f ,mWidth, mHeight); 
         
     }else if(rectMode == RECTMODE_LEFTTOP)
     {
-        mImage.draw(0.0f, -mHeight ,mWidth, mHeight); 
+        internalDraw(0.0f, -mHeight ,mWidth, mHeight); 
         
     }else if(rectMode == RECTMODE_RIGHTSIDE)
     {
@@ -90,27 +90,27 @@ void ofkglImageRenderer::render()
          +-----------
          */
         
-        mImage.draw(-mWidth, -mHeight / 2.0f ,mWidth, mHeight);    
+        internalDraw(-mWidth, -mHeight / 2.0f ,mWidth, mHeight);    
         
     }else if(rectMode == RECTMODE_RIGTHBOTTOM)
     {
-        mImage.draw(-mWidth, 0.0f ,mWidth, mHeight); 
+        internalDraw(-mWidth, 0.0f ,mWidth, mHeight); 
     }else if(rectMode == RECTMODE_RIGTHTOP)
     {
-        mImage.draw(-mWidth, -mHeight ,mWidth, mHeight);         
+        internalDraw(-mWidth, -mHeight ,mWidth, mHeight);         
         
     }else if(rectMode == RECTMODE_UPPERSIDE)
     {
-        mImage.draw(-mWidth / 2.0f, mHeight ,mWidth, mHeight);         
+        internalDraw(-mWidth / 2.0f, mHeight ,mWidth, mHeight);         
         
     }else if(rectMode == RECTMODE_BOTTOMSIDE)
     {
-        mImage.draw(-mWidth / 2.0f, 0.0F ,mWidth, mHeight);     
+        internalDraw(-mWidth / 2.0f, 0.0F ,mWidth, mHeight);     
         
     }else{
         //if rectMode is not define 
         // apply center rendering
-        mImage.draw(-mWidth / 2.0f, -mHeight / 2.0f ,mWidth, mHeight);        
+        internalDraw(-mWidth / 2.0f, -mHeight / 2.0f ,mWidth, mHeight);        
     }
     
     //MAYBE WE NEED CHECK THESE LOGIC 
@@ -163,3 +163,15 @@ void ofkglImageRenderer::setUV(float* uvArray)
         squareTexCoord[i] = uvArray[i];
     }
 }
+
+void ofkglImageRenderer::internalDraw(float x, float y, float w, float h)
+{
+    if(mImage.bAllocated())
+    {
+        mImage.draw(x, y ,w, h); 
+    }else
+    {
+        ofRect(x, y, w, h);
+    }
+}
+
