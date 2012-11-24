@@ -51,12 +51,15 @@ public:
     void enable();
     void disable();
     
+    void setSensibility(float thresh);
+    float getCurrentSensibility(){return mSenseThresh;}
+                              
     ofEvent<ofkOnsetEventArgs> onsetEvent;
     
     void setOnsetIntervalThresh(unsigned long intervalTime);
     
 private:
-    
+    float   mSenseThresh;
     bool    mIsActive;
     
     unsigned long mOnsetThreshInterval;

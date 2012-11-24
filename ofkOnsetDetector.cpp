@@ -8,12 +8,14 @@
 #include "ofkOnsetDetector.h"
 
 #define BABYKICK (0.015463)
+
 #define DEFAULT_ONSET_INTERVAL_THRESH (400)
 
 ofkOnsetDetector::ofkOnsetDetector():
 mIsActive(false)
 {
     mOnsetThreshInterval = DEFAULT_ONSET_INTERVAL_THRESH;
+    mSenseThresh = BABYKICK; // DEFUALT is MID
 }
 
 void ofkOnsetDetector::update(ofVec3f acc)
@@ -28,7 +30,7 @@ void ofkOnsetDetector::update(ofVec3f acc)
     
     //check Thresh
     //if(0.015463 < mRecogSignal)
-    if(BABYKICK < mRecogSignal )
+    if(mSenseThresh < mRecogSignal )
     {
         if(ofGetSystemTime() - mLastOnsetTime > mOnsetThreshInterval)
         {
@@ -51,6 +53,15 @@ void ofkOnsetDetector::enable()
 
 void ofkOnsetDetector::disable()
 {
+    
+}
+
+void ofkOnsetDetector::setSensibility(float thresh)
+{
+    if(thresh > 0)
+    {
+        mSenseThresh = thresh;
+    }
     
 }
 

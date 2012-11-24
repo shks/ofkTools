@@ -117,8 +117,45 @@ void ofkglImageRenderer::render()
     
     glPopMatrix();
     glColor4f(1.0, 1.0, 1.0, 1.0);
+    
+    
+    
+    ////////
+    /*
+    ofPoint RT = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
+    ofPoint RB = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
+    ofPoint LT = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
+    ofPoint LB = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
+    
+    ofSetLineWidth(3.0);
+    glColor4f(1.0, 0.0, 0.0, 1.0);
+    ofLine(RT.x, RT.y, LB.x, LB.y);
+    ofLine(LT.x, LT.y, RB.x, RB.y);
+     */
+    /////
+    
+    
 }
 
+bool ofkglImageRenderer::isHitTest(ofPoint FrameBufferPoint)
+{
+    ofPoint RT = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
+    ofPoint RB = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
+    ofPoint LT = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
+    ofPoint LB = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
+    
+    bool res = false;
+    
+    if(RT.x < FrameBufferPoint.x && FrameBufferPoint.x < LT.x)
+    {
+        if(RT.y < FrameBufferPoint.y && FrameBufferPoint.y < RB.y)
+        {
+            res = true;
+        }
+    }
+
+    return res;
+}
 
 void ofkglImageRenderer::setImage(ofImage image)
 {

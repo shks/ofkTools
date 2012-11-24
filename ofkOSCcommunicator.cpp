@@ -29,7 +29,7 @@ void ofkOSCcommunicator::init(oscCallBack *pOSCCallBacK, void* pUserdata, int Re
         OWN_IP = ip_names[1];        
     }else
     {
-        OWN_IP = "OWN_IP";
+        OWN_IP = "NOT CONNECTED";
     }
     SEND_HOST_IP = "000.000.000.000";
     
@@ -106,7 +106,7 @@ void ofkOSCcommunicator::render()
 	ofDrawBitmapString( buf, 10, 20 );
     
     string IP;
-    IP = "I am : " + string(ip_names[1]) + " PORT is " + ofToString(mPort);
+    IP = "I am : " + string(OWN_IP) + " PORT is " + ofToString(mPort);
     ofDrawBitmapString( IP, 10, 40 );
     
     IP = string("sending to ") +  string ( SEND_HOST_IP );
