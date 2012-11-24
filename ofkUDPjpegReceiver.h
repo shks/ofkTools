@@ -16,7 +16,7 @@
 /*
  
  // in testApp.h, define this function to get decoded pixel data
- void onReceiveImgae(ofPixels & pix);
+ void onReceiveImgae(ofkPixelsWithIP & pix);
  
  
  // add the onReceiveImgae method to listen for ofkUDPjpegReceiver newReceivedPixelEvent
@@ -24,6 +24,11 @@
  
 
  */
+class ofkPixelsWithIP : public ofPixels
+{
+public:
+    string IP;
+};
 
 class ofkUDPjpegReceiver
 {
@@ -43,7 +48,7 @@ public:
 	    ofRemoveListener(ofEvents().update, this, &ofkUDPjpegReceiver::update);
 	};
     
-    ofEvent< ofPixels > newReceivedPixelEvent;
+    ofEvent< ofkPixelsWithIP > newReceivedPixelEvent;
     
 private:
     

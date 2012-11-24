@@ -60,7 +60,14 @@ bool ofkUDPjpegSender::sendImage(ofPixels &pix)
     
     ofSaveImage(pix, jpegVideoBuffer ,OF_IMAGE_FORMAT_JPEG,mQuality);
     sendDataSize = jpegVideoBuffer.size();
-    int sent = udpConnect.Send(jpegVideoBuffer.getBinaryBuffer(),  jpegVideoBuffer.size());
+    
+    int sent = -1;
+    if(sendDataSize < udpConnect.GetSendBufferSize())
+    {
+        sent = udpConnect.Send(jpegVideoBuffer.getBinaryBuffer(),  jpegVideoBuffer.size());
+    }else{
+        ofLog(OF_LOG_FATAL_ERROR , "BUFFER SIZE OVER");
+    }
     
     s_measureEnd = ofGetElapsedTimeMillis();
 
