@@ -21,7 +21,10 @@
  
  // add the onReceiveImgae method to listen for ofkUDPjpegReceiver newReceivedPixelEvent
  ofAddListener(newReceivedPixelEvent,this,&testApp::onReceiveImgae);
- 
+
+ //usage Exmaple
+ mUDPjpegReceiver.init(4054, 9216 * 4);
+ ofAddListener(mUDPjpegReceiver.newReceivedPixelEvent,this,&testApp::onReceiveImgae);
 
  */
 class ofkPixelsWithIP : public ofPixels
