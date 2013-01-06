@@ -50,6 +50,13 @@ void ofkUDPjpegSender::setjpegQuality(ofImageQualityType q)
     mQuality = q;
 }
 
+void ofkUDPjpegSender::setEnableBroadCast(bool isEnableBroadCast)
+{
+    if(!isInitlized)
+        return  ;
+    
+    udpConnect.SetEnableBroadcast(isEnableBroadCast);
+}
 
 bool ofkUDPjpegSender::sendImage(ofPixels &pix)
 {
@@ -80,3 +87,16 @@ unsigned long ofkUDPjpegSender::getProcessTime()
     return (s_measureEnd - s_measureStart);
     
 }
+
+string ofkUDPjpegSender::getSendIPAdress()
+{
+    char *adr;
+    string res = "ofkUDPjpegSender::undefined";
+    if(udpConnect.GetRemoteAddr(adr))
+    {
+        res = adr;
+    }
+    
+    return res;
+}
+

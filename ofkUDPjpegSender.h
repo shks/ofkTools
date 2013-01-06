@@ -20,11 +20,12 @@ public:
     bool init(string targetIP, int port, int BufferSize = 22518);
     bool setBufferSize(int BufferSize);
     void setjpegQuality(ofImageQualityType q);
-    
+    void setEnableBroadCast(bool isEnableBroadCast);
     bool sendImage(ofPixels &pix);
+    
     unsigned long getProcessTime();
     int getSendingDataSize(){return sendDataSize;}
-    
+    string getSendIPAdress();
     
 private:
     ofxUDPManager udpConnect;
