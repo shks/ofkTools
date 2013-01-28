@@ -19,6 +19,14 @@ public:
     
     bool init(string targetIP, int port, int BufferSize = 22518);
     bool setBufferSize(int BufferSize);
+    
+    /*
+     OF_IMAGE_QUALITY_BEST,
+     OF_IMAGE_QUALITY_HIGH,
+     OF_IMAGE_QUALITY_MEDIUM,
+     OF_IMAGE_QUALITY_LOW,
+     OF_IMAGE_QUALITY_WORST
+     */
     void setjpegQuality(ofImageQualityType q);
     void setEnableBroadCast(bool isEnableBroadCast);
     bool sendImage(ofPixels &pix);

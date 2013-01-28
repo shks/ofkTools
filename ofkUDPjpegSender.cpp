@@ -20,6 +20,9 @@ bool ofkUDPjpegSender::init(string targetIP, int port, int BufferSize)
 {
     bool ret = false;
     
+    // first Close it
+    udpConnect.Close();
+    
     if(udpConnect.Create())
     {
         if(udpConnect.Connect(targetIP.c_str(), port))

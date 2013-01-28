@@ -22,7 +22,13 @@
 //シングルトン実装
 
 #include "ofMain.h"
-#include "ofxiPhoneExtras.h"
+
+#ifdef TARGET_OSX
+
+#else
+    #include "ofxiPhoneExtras.h"
+#endif
+
 #include "ofxXmlSettings.h"
 
 #ifndef _ofkXMLProperties_H_

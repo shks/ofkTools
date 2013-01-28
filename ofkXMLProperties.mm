@@ -32,7 +32,15 @@ bool ofkXMLProperties::setXMLFile(const string& fileName)
     if(NULL != pInstance){
         //pInstance->XMLへのアクセス
         
-        if( pInstance->XML.loadFile(ofxiPhoneGetDocumentsDirectory() + fileName) )
+        bool isIOSpath = false;
+#ifdef TARGET_OSX
+        isIOSpath = false;
+#else
+        //iOS
+        isIOSpath = pInstance->XML.loadFile(ofxiPhoneGetDocumentsDirectory() + fileName);
+#endif
+
+        if( isIOSpath )
         {
             ofLog(OF_LOG_NOTICE, fileName + " loaded from documents folder!");
             pInstance->XML.bDocLoaded = true;
@@ -72,7 +80,12 @@ bool ofkXMLProperties::setLastOpenData()
         pInstance->XML.setValue("SETTINGS::LastOpenDateMinute", ofGetMinutes());
         pInstance->XML.setValue("SETTINGS::LastOpenDateSecond", ofGetSeconds());
         
+#ifdef TARGET_OSX
+        if (pInstance->XML.saveFile( FileName))
+#else
+        //iOS
         if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
         {
             ofLog(OF_LOG_NOTICE, "setLastOpenData:LastOpenDateSecond as " + ofToString(ofGetSeconds()));
             int res = getPropertyValue("SETTINGS::LastOpenDateSecond", -1);
@@ -159,7 +172,12 @@ void ofkXMLProperties::setPropertyValue(const string& tag, int value)
     if(NULL != pInstance){
         
         pInstance->XML.setValue(tag, value);
-        if (pInstance->XML.saveFile(ofxiPhoneGetDocumentsDirectory() + FileName))
+#ifdef TARGET_OSX
+        if (pInstance->XML.saveFile( FileName))
+#else
+    //iOS
+        if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
         {
             ofLog(OF_LOG_NOTICE, "XML file was Saved ");            
         }else
@@ -177,7 +195,12 @@ void ofkXMLProperties::setPropertyValue(const string& tag, float value)
     if(NULL != pInstance){
         
         pInstance->XML.setValue(tag, value);
-        if (pInstance->XML.saveFile(ofxiPhoneGetDocumentsDirectory() + FileName))
+#ifdef TARGET_OSX
+        if (pInstance->XML.saveFile( FileName))
+#else
+            //iOS
+       if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
         {
             ofLog(OF_LOG_NOTICE, "XML file was Saved ");
         }
@@ -193,7 +216,12 @@ void ofkXMLProperties::setPropertyValue(const string& tag, const string& value)
     if(NULL != pInstance){
         
         pInstance->XML.setValue(tag, value);
-        if (pInstance->XML.saveFile(ofxiPhoneGetDocumentsDirectory() + FileName))
+#ifdef TARGET_OSX
+        if (pInstance->XML.saveFile( FileName))
+#else
+            //iOS
+        if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
         {
             ofLog(OF_LOG_NOTICE, "XML file was Saved ");
         }
