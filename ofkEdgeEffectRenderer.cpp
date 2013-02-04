@@ -20,21 +20,23 @@ void ofkEdgeEffectRenderer::init(int width, int height)
     r = 120;
     g = 20;
     b = 255;
+    
+    thresh = 100;
 }
 
 void ofkEdgeEffectRenderer::update(ofPixels gray)
 {
     //you can change here later
-    Canny(gray, edge, 70, 0, 3);
-    blur(edge,  edge, 2);
+    ofxCv::Canny(gray, edge, (int)thresh, 100, 3);
+    ofxCv::blur(edge,  edge, 2);
     edge.update();
     
-    blur(edge,  edge2, 30);
+    ofxCv::blur(edge,  edge2, 30);
     edge2.update();
     
 }
 
-void ofkEdgeEffectRenderer::render(float x, float y, float w, float h)
+void ofkEdgeEffectRenderer::render(float x, float y, float w, float h, bool renderToFB)
 {
     
     // --------------  rendering effect FrameBuffer //// From Here
@@ -61,10 +63,14 @@ void ofkEdgeEffectRenderer::render(float x, float y, float w, float h)
     effectFrameBuffer.end();
     // --------------  rendering effect FrameBuffer //// END
     
-    //draw mode as add blend
-    ofEnableBlendMode(OF_BLENDMODE_ADD);
-    ofSetColor(255, 255 ,255, 255);
-    effectFrameBuffer.draw(x,y,w,h);
+    if(renderToFB)
+    {
+        //draw mode as add blend
+        ofEnableBlendMode(OF_BLENDMODE_ADD);
+        ofSetColor(255, 255 ,255, 255);
+        effectFrameBuffer.draw(x,y,w,h);
+        
+    }
 }
 
 void ofkEdgeEffectRenderer::setEnableMask(bool _isUseMask)
@@ -97,4 +103,8 @@ void ofkEdgeEffectRenderer::renderMaskImage(float x, float y, float w, float h)
     maskFrameBuffer.draw(x, y, w, h);
 }
 
+ofTexture& ofkEdgeEffectRenderer::getTextureReference()
+{
+    return effectFrameBuffer.getTextureReference();
+}
 

@@ -28,7 +28,7 @@ public:
 
     void init(int width, int height);
     void update(ofPixels gray); //this should be gray image
-    void render(float x, float y, float w, float h);
+    void render(float x, float y, float w, float h, bool renderToFB = true);
     void setEnableMask(bool isUseMask);
     
     void beignMask();           //begin rendering mask buffer
@@ -36,14 +36,17 @@ public:
     void setAuraColor(int r, int g ,int b);
     void renderMaskImage(float x, float y, float w, float h);
     
+    ofTexture& getTextureReference();
+    
     //
     int r, g, b;
     bool isUseMask;
+    float thresh;
 
     ofImage edge;
 	ofImage edge2;
     ofFbo maskFrameBuffer;
     ofFbo effectFrameBuffer;
-    
+   
  };
 #endif
