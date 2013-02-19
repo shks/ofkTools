@@ -32,7 +32,6 @@ in Header, Define function for CallBack
  }
  
  */
- 
 
 #define NUM_MSG_STRINGS 50
 
@@ -55,8 +54,16 @@ public:
     void send(ofxOscMessage message);
     string getSendIPAddress(){return SEND_HOST_IP;}
     string getOnwIPAddress(){return OWN_IP;}
-    
     void setDebugVisible(bool is){ isDebugVisible = is;}
+    
+    // PRE DEFINED OSC Messages gen and decoede
+    static ofxOscMessage genofkOSC(string name, int ID, ofMatrix4x4 mat);
+    static ofMatrix4x4 getFromofkOSC(ofxOscMessage message, string &name, int &ID);
+    
+    
+    //PRE DEFINED CONSTANT STRING
+    static string MESSAGE_MATRIX44;
+    
 private:
      
     void* mpUserdata;

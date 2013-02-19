@@ -9,6 +9,8 @@
 #include "ofkOSCcommunicator.h"
 #include "IPAddress.h"
 
+string ofkOSCcommunicator::MESSAGE_MATRIX44 = "/ofxOscMessage/ofMatrix4x4";
+
 ofkOSCcommunicator::ofkOSCcommunicator():
 mpUserdata(NULL), 
 pOSCcallbackFunc(NULL)
@@ -129,4 +131,40 @@ void ofkOSCcommunicator::setSendIPAddress(string ip)
 {
     SEND_HOST_IP = ip;
     sender.setup(SEND_HOST_IP, mPort);
+}
+
+// PRE DEFINED OSC Messages gen and decoede
+ofxOscMessage ofkOSCcommunicator::genofkOSC(string name, int ID, ofMatrix4x4 mat)
+{
+    ofxOscMessage m;
+    m.setAddress(MESSAGE_MATRIX44);
+    
+    m.addStringArg("name");         //name
+    m.addIntArg(ID);                //ID
+    
+    for(int i  = 0 ; i < 16 ; i ++)
+    {
+        m.addFloatArg(mat.getPtr()[i]);
+    }
+    
+    return m;
+}
+
+ofMatrix4x4 ofkOSCcommunicator::getFromofkOSC(ofxOscMessage message, string &name, int &ID)
+{
+    ofMatrix4x4 mat;
+    
+    if( message.getAddress() == MESSAGE_MATRIX44 )
+    {
+        name = message.getArgAsString(0);
+        ID = message.getArgAsInt32(1);
+        
+        int offset = 2;
+        //MATRIX DATA
+        for(int i = 0; i <= 16 ; i++)
+        {
+            mat.getPtr()[i] = message.getArgAsFloat(i + offset);
+        }
+    }
+    return mat;
 }
