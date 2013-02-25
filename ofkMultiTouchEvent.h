@@ -53,17 +53,18 @@ public:
 
 	void enable(){
         //send touchDownEvent into touchDownMulti to check  multi touch Event
-        
+
         ofAddListener(ofEvents().touchDown, this, &ofkMultiTouchEvent::touchDownMulti);
         ofAddListener(ofEvents().touchMoved, this, &ofkMultiTouchEvent::touchMoveMulti);
         ofAddListener(ofEvents().touchUp, this, &ofkMultiTouchEvent::touchUpMulti);
     }
     
 	void disable(){
-        //remove touchDownEvent        
-        ofRemoveListener(ofEvents().touchDown, this, &ofkMultiTouchEvent::touchDownMulti);     
+        //remove touchDownEvent
+        ofRemoveListener(ofEvents().touchDown, this, &ofkMultiTouchEvent::touchDownMulti);
         ofRemoveListener(ofEvents().touchMoved, this, &ofkMultiTouchEvent::touchMoveMulti);     
-        ofRemoveListener(ofEvents().touchUp, this, &ofkMultiTouchEvent::touchUpMulti);     
+        ofRemoveListener(ofEvents().touchUp, this, &ofkMultiTouchEvent::touchUpMulti);
+        
 	}
 
     virtual void touchDownMulti(ofTouchEventArgs &touch);

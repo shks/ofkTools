@@ -139,7 +139,7 @@ ofxOscMessage ofkOSCcommunicator::genofkOSC(string name, int ID, ofMatrix4x4 mat
     ofxOscMessage m;
     m.setAddress(MESSAGE_MATRIX44);
     
-    m.addStringArg("name");         //name
+    m.addStringArg(name);         //name
     m.addIntArg(ID);                //ID
     
     for(int i  = 0 ; i < 16 ; i ++)
@@ -161,7 +161,7 @@ ofMatrix4x4 ofkOSCcommunicator::getFromofkOSC(ofxOscMessage message, string &nam
         
         int offset = 2;
         //MATRIX DATA
-        for(int i = 0; i <= 16 ; i++)
+        for(int i = 0; i < 16 ; i++)
         {
             mat.getPtr()[i] = message.getArgAsFloat(i + offset);
         }
