@@ -30,15 +30,17 @@ void ofkUDPjpegReceiver::init(int port, int BufferSize)
 
 void ofkUDPjpegReceiver::update(ofEventArgs & args)
 {
-    char revBuffer[mBufferSize];
-    int ret = udpConnect.Receive(revBuffer,mBufferSize);
+	//2013.03.06 modify
+    //char revBuffer[mBufferSize];
+	char *revBuffer = new char[mBufferSize];
+	int ret = udpConnect.Receive(revBuffer,mBufferSize);
     
     char address[255];
     udpConnect.GetRemoteAddr(address);
     string ip_String;
     ip_String = address;
     
-    
+
     //CHECK THIS
     if(ret != -1)
     {
@@ -57,4 +59,6 @@ void ofkUDPjpegReceiver::update(ofEventArgs & args)
             ofLog(OF_LOG_NOTICE, "Can not load from Buffer" + ofToString(ret));
         }
     }
+
+	delete[] revBuffer; 
 }
