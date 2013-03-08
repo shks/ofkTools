@@ -13,10 +13,10 @@
 #define oscSenderExample_ofkOSCcommunicator_h
 
 /*
- 
+
+// ----- Static callback Usage  -----  //
 in Header, Define function for CallBack
- 
- static void myOscCallBack(ofxOscMessage recieveMessage, void *pUserdata);
+static void myOscCallBack(ofxOscMessage recieveMessage, void *pUserdata);
  
  
  //function exsample
@@ -30,8 +30,13 @@ in Header, Define function for CallBack
  pThis->mouseY = recieveMessage.getArgAsInt32( 1 );
  }
  }
+
+ // ----- Event callback Usage  -----  //
+
+void onReceiveOSC(ofxOscMessage & prt);
+ofAddListener(mOSCcommunicator.newReceivedOSCEvent,this,&CLASS::onReceiveOSC);
  
- */
+*/
 
 #define NUM_MSG_STRINGS 50
 
@@ -60,6 +65,7 @@ public:
     static ofxOscMessage genofkOSC(string name, int ID, ofMatrix4x4 mat);
     static ofMatrix4x4 getFromofkOSC(ofxOscMessage message, string &name, int &ID);
     
+    ofEvent< ofxOscMessage >       newReceivedOSCEvent;
     
     //PRE DEFINED CONSTANT STRING
     static string MESSAGE_MATRIX44;

@@ -62,6 +62,7 @@ void ofkOSCcommunicator::update()
 		ofxOscMessage m;
 		receiver.getNextMessage( &m );
         
+        //Function Pointer Callback
         if(NULL != pOSCcallbackFunc)
         {
             if(NULL != mpUserdata)
@@ -70,6 +71,10 @@ void ofkOSCcommunicator::update()
                 (*pOSCcallbackFunc)(m, mpUserdata);
             }
         }
+        
+        //Event Callback
+        ofNotifyEvent(newReceivedOSCEvent, m);
+
     
         //ßunrecognized message: display on the bottom of the screen
 
