@@ -7,7 +7,16 @@
 //
 
 #include "ofkOSCcommunicator.h"
-#include "IPAddress.h"
+
+#ifdef WIN32
+	#include "IPAddressWin32.h"
+#else
+	#include "IPAddress.h"
+#endif
+
+
+
+
 
 string ofkOSCcommunicator::MESSAGE_MATRIX44 = "/ofxOscMessage/ofMatrix4x4";
 
@@ -23,19 +32,26 @@ void ofkOSCcommunicator::init(oscCallBack *pOSCCallBacK, void* pUserdata, int Re
     //set call back function 
     pOSCcallbackFunc = pOSCCallBacK;
     mpUserdata = pUserdata;
-    
-    InitAddresses();
+
+#ifdef WIN32
+	OWN_IP = "localhost";
+	SEND_HOST_IP = "000.000.000.000";
+
+#else
+	InitAddresses();
 	GetIPAddresses();
-    if(NULL != ip_names[1])
-    {
-        OWN_IP = ip_names[1];        
-    }else
-    {
-        OWN_IP = "NOT CONNECTED";
-    }
-    SEND_HOST_IP = "000.000.000.000";
-    
-    mPort = Sendport;
+	if(NULL != ip_names[1])
+	{
+		OWN_IP = ip_names[1];        
+	}else
+	{
+		OWN_IP = "NOT CONNECTED";
+	}
+	SEND_HOST_IP = "000.000.000.000";
+
+#endif
+	
+	mPort = Sendport;
     
     receiver.setup( Revport );    
     sender.setup( SEND_HOST_IP, mPort );
