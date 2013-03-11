@@ -49,6 +49,13 @@ public:
     static void setPropertyValue(const string& tag, int value);
     static void setPropertyValue(const string& tag, float value);
     static void setPropertyValue(const string& tag, const string& value);
+    
+    
+    // ----- set and get Macro
+    
+    static void setPropertyMatrix44f(const string& tag, const ofMatrix4x4& mat);
+    static ofMatrix4x4 getPropertyMatrix44f(const string& tag);
+
 	
 protected:
 	static ofkXMLProperties *getInstance();

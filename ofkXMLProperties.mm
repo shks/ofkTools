@@ -230,6 +230,66 @@ void ofkXMLProperties::setPropertyValue(const string& tag, const string& value)
     }
 }
 
+
+void ofkXMLProperties::setPropertyMatrix44f(const string& tag, const ofMatrix4x4& mat)
+{
+	ofkXMLProperties *pInstance = getInstance();
+    if(NULL != pInstance){
+ 
+        //setting value into XML
+        //ex, MATRIX0, MATRIX1, MATRIX2, MATRIX3, 
+        for(int i = 0 ; i < 16 ; i++)
+        {
+            string _tag = tag + ofToString(i);
+            pInstance->XML.setValue(_tag, mat.getPtr()[i]);
+        }
+        
+#ifdef TARGET_OSX
+        if (pInstance->XML.saveFile( FileName))
+#else
+            //iOS
+            if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
+            {
+                ofLog(OF_LOG_NOTICE, "XML file was Saved ");
+            }
+    }else{
+        ofLog(OF_LOG_NOTICE, "XML file was not loaded ");
+    }
+    
+    
+}
+
+
+ofMatrix4x4 ofkXMLProperties::getPropertyMatrix44f(const string& tag)
+{
+    ofkXMLProperties *pInstance = getInstance();
+    
+    ofMatrix4x4 mat;
+    mat.makeIdentityMatrix();
+	
+	if(NULL != pInstance){
+        //pInstance->XMLへのアクセス
+        if(pInstance->XML.bDocLoaded)
+        {
+            for(int i = 0 ; i < 16 ; i++)
+            {
+                string _tag = tag + ofToString(i);
+                mat.getPtr()[i] = pInstance->XML.getValue(_tag, 0.0);
+            }            
+        }else{
+            ofLog(OF_LOG_NOTICE, "XML file was not loaded ");
+        }
+	}else {
+        ofLog(OF_LOG_NOTICE, "Can not get ofkXMLProperties instance");
+	}
+	return mat;
+    
+}
+
+
+
+
 //Static function
 ofkXMLProperties* ofkXMLProperties::getInstance()
 {
