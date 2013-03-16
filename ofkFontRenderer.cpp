@@ -68,3 +68,17 @@ bool ofkFontRenderer::isLoaded()
 	}
     return is;
 }
+
+ofRectangle ofkFontRenderer::getStringBoundingBox(string str)
+{
+    ofkFontRenderer *pInstance = getInstance();
+	
+    ofRectangle rect;
+	if(NULL != pInstance){
+        rect = pInstance->font.getStringBoundingBox(str, 0, 0);
+	}else {
+        ofLog(OF_LOG_NOTICE, "Can not get ofkFontRenderer instance");
+	}
+    
+    return rect;
+}

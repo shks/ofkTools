@@ -20,7 +20,8 @@ public:
     static void loadFont(const string& filePath, float pointSize);
     static void renderString(const string& srt);
     static bool isLoaded();
-	
+	static ofRectangle getStringBoundingBox(string str);
+
 protected:
 	static ofkFontRenderer *getInstance();
 	
