@@ -27,9 +27,11 @@ void ofkMultiTouchEvent::setTouchPos(int index, float x, float y)
 void ofkMultiTouchEvent::touchDownMulti(ofTouchEventArgs &touch)
 {
     mCurrentTouchPointNum = touch.numTouches;
-    
+
+    /*
     string mes = "ofTouchEventArgs event: id" + ofToString(touch.id) + "in " + ofToString(mCurrentTouchPointNum) + " pos" + ofToString(touch.x);
     cout << mes << "\n";
+    */
     
     //CHECK VAILED TOUCH NUM
     if(touch.id < TOUCHNUMMAX)
@@ -104,10 +106,12 @@ void ofkMultiTouchEvent::calcAndNotifyTouchEvent()
         arg.angleDif = updateAngle  - mDegTwoFinger;
     }
     
+    /*
     string mes = "ANGEL DIF" + ofToString(arg.angleDif);
     cout << mes << "\n";
+    */
     
-    arg.angle = updateAngle;        
+    arg.angle = updateAngle;
     arg.pinchLength = (updateBetweenVector).length();
     arg.pinchLengthDif = updateBetweenVector.length() - mVecBetweenTwoFinger.length();
     arg.pinchLengthFromStart = updateBetweenVector.length() - mVecBetweenTwoFingerStart.length();
