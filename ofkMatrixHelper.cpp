@@ -1,7 +1,7 @@
 #include "ofkMatrixHelper.h"
 
 
-ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, const GLdouble *model, const GLdouble *proj, const GLint *viewPort)
+ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, const float *model, const float *proj, const GLint *viewPort)
 {
     ofVec3f res;
     
@@ -10,11 +10,11 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
     
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
-    glLoadMatrixd(proj);
+    glLoadMatrixf(proj);
     
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glLoadMatrixd(model);
+    glLoadMatrixf(model);
 
     // ---------------- DRAW and pickup points ---------------  //
     //Enable Depth
@@ -29,19 +29,31 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
     ofFill();
     ofRect(-10000, -10000, 20000, 20000);
 
-    //-> FUNC
+    
     double objX;
 	double objY;
 	double objZ;
     float z;
     
-    //-> FUNC
+//#if defined WIN32 || defined TARGET_OS_MAC
+#if defined WIN32  || defined TARGET_OS_X
+    
     glReadPixels(ofScreenPosX, viewPort[3] - ofScreenPosY ,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&z);
     gluUnProject(ofScreenPosX, viewPort[3] - ofScreenPosY ,z,model, proj, viewPort,&objX,&objY,&objZ);
     
+    cout << "Who use this? still need to check this" << endl;
+    
+#elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+
+
+    cout << "gluUnProject and GL_DEPTH_COMPONENT is not implemented in iOS openGLES 1.0" << endl;
+    
+    z = 0.0;
+    
+#endif
     res.x = objX;
     res.y = objY;
-    res.z = 0.0;  // Actually , we'll get small number in objZ , I guess it's computation Error of double
+    res.z = 0.0;
     
 	//no no we need to modify this
 
@@ -59,8 +71,8 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
 
 ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, ofMatrix4x4 modelView, ofMatrix4x4 projection, float viewWidth, float viewHeight )
 {
-    GLdouble modelMAT[16];
-    GLdouble projectionMAT[16];
+    float modelMAT[16];
+    float projectionMAT[16];
     GLint view[4];
     
     for(int i = 0 ; i < 16 ; i++)
