@@ -35,7 +35,7 @@ void ofkOSCcommunicator::init(oscCallBack *pOSCCallBacK, void* pUserdata, int Re
 
 #ifdef WIN32
 	OWN_IP = "localhost";
-	SEND_HOST_IP = "000.000.000.000";
+	SEND_HOST_IP = "192.168.0.1";
 
 #else
 	InitAddresses();
