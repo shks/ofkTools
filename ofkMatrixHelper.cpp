@@ -1,7 +1,7 @@
 #include "ofkMatrixHelper.h"
 
 
-ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, const float *model, const float *proj, const GLint *viewPort)
+ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, const GLdouble *model, const GLdouble *proj, const GLint *viewPort)
 {
     ofVec3f res;
     
@@ -10,11 +10,11 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
     
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
-    glLoadMatrixf(proj);
+    glLoadMatrixd(proj);
     
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
-    glLoadMatrixf(model);
+    glLoadMatrixd(model);
 
     // ---------------- DRAW and pickup points ---------------  //
     //Enable Depth
@@ -36,13 +36,28 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
     float z;
     
 //#if defined WIN32 || defined TARGET_OS_MAC
-#if defined WIN32  || defined TARGET_OS_X
+#if defined WIN32
+
+	/*
+	float _model[];
+	float _proj[];
+
+	for(int i = 0 ; i < 16 ; i++)
+	{
+		_model[i] = model[i];
+		_proj[i] = proj[i];
+	}
+	*/
+
+	glReadPixels(ofScreenPosX, viewPort[3] - ofScreenPosY ,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&z);
+	gluUnProject(ofScreenPosX, viewPort[3] - ofScreenPosY ,z, model, proj, viewPort,&objX,&objY,&objZ);
+
+
+#elif defined TARGET_OS_X
     
     glReadPixels(ofScreenPosX, viewPort[3] - ofScreenPosY ,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&z);
     gluUnProject(ofScreenPosX, viewPort[3] - ofScreenPosY ,z,model, proj, viewPort,&objX,&objY,&objZ);
-    
-    cout << "Who use this? still need to check this" << endl;
-    
+        
 #elif TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 
 
@@ -71,8 +86,8 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
 
 ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, ofMatrix4x4 modelView, ofMatrix4x4 projection, float viewWidth, float viewHeight )
 {
-    float modelMAT[16];
-    float projectionMAT[16];
+    GLdouble modelMAT[16];
+    GLdouble projectionMAT[16];
     GLint view[4];
     
     for(int i = 0 ; i < 16 ; i++)
