@@ -34,6 +34,7 @@ public:
     void setModelViewMatrix(ofMatrix4x4 ModelViewMat);
     void setProjectionMatrix(ofMatrix4x4 ProjectionMat);
     
+	bool isFlip;
 private:
     
     void updateMeshInternal();

@@ -23,10 +23,10 @@
 
 #include "ofMain.h"
 
-#ifdef TARGET_OSX
-
-#else
-    #include "ofxiPhoneExtras.h"
+#if defined WIN32
+#elif defined TARGET_OS_X    
+#elif defined TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+	#include "ofxiPhoneExtras.h"
 #endif
 
 #include "ofxXmlSettings.h"

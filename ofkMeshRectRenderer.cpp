@@ -7,13 +7,14 @@
 //
 
 #include "ofkMeshRectRenderer.h"
+#include "ofkMatrixHelper.h"
 
 
 void ofkMeshRectRenderer::init()
 {
-    mWidth = 50.0f;
-    mHeight = 50.0f;
-
+    mWidth = 1.0f;
+    mHeight = 1.0f;
+	isFlip = false;
     updateMeshInternal();
 }
 
@@ -112,8 +113,8 @@ void ofkMeshRectRenderer::updateMeshInternal()
             mHorizonVerts[vertical][2 * i + 1] = ofVec3f(mWidth *( unitInterval * i  - 0.5), mHeight * (unitInterval * (vertical + 1) -0.5));   
             
             //TODO change Alpha
-            mHorizonColors[vertical][2 * i].set(1.0,1.0,1.0,0.5);
-            mHorizonColors[vertical][2 * i + 1].set(1.0,1.0,1.0,0.5);
+            mHorizonColors[vertical][2 * i].set(1.0,1.0,1.0,1.0);
+            mHorizonColors[vertical][2 * i + 1].set(1.0,1.0,1.0,1.0);
         }
         
         mVbos[vertical].setVertexData(mHorizonVerts[vertical], 2*(GridRES+1), GL_DYNAMIC_DRAW);   
@@ -125,18 +126,25 @@ void ofkMeshRectRenderer::updateMeshInternal()
 
 void ofkMeshRectRenderer::updateUVCoordibate()
 {
-    for (int vertical = 0; vertical < GridRES; vertical++) {
+	for (int vertical = 0; vertical < GridRES; vertical++) {
         
         for(int i = 0; i < 2*(GridRES+1) ; i++)
         {
             ofVec3f FBARpoint = mARProjectionMatrix.preMult(mARmodelViewMatrix.preMult(mHorizonVerts[vertical][i]));
             FBARpoint.x = (FBARpoint.x + 1)*0.5 * ofGetWidth();
             //TODO use Image Width
-            //FBARpoint.y = (1 - FBARpoint.y)*0.5 * ofGetHeight();
-            
-            FBARpoint.y = (1 - FBARpoint.y)*0.5 * ofGetHeight();
-            //TODO use Image Height
-
+			if(isFlip)
+			{
+				FBARpoint.y = (1 - FBARpoint.y)*0.5 * ofGetHeight();           
+			}else
+			{
+				FBARpoint.y = (1 + FBARpoint.y)*0.5 * ofGetHeight();
+			}
+            //FBARpoint.y = (1 - FBARpoint.y)*0.5 * ofGetHeight();           
+            //FBARpoint.y = (1 + FBARpoint.y)*0.5 * ofGetHeight();
+			
+			//FBARpoint.y = (1 - FBARpoint.y)*0.5 * ofGetHeight();
+			//TODO use Image Height
             mTranslatedUV[vertical][i]= ofVec3f( FBARpoint.x / ofGetWidth() , FBARpoint.y / ofGetHeight());
         }
         mVbos[vertical].setTexCoordData(mTranslatedUV[vertical], 2*(GridRES+1), GL_DYNAMIC_DRAW);
