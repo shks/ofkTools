@@ -14,8 +14,6 @@ TODO : debug the behaivor in windows
 
 #endif
 
-#define USE_VIDEO_GRABBER
-
 class ofkVideoStreamWrapper
 {
 public:
@@ -31,7 +29,8 @@ public:
 	~ofkVideoStreamWrapper(void);
 
 	void init(VideoStreamMode mode);
-	
+	void init(string VideoFilePath);
+
 	void renderDebug();
 	ofPixelsRef getPixel();
 	ofTexture& getTexture();

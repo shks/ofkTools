@@ -28,9 +28,8 @@ void ofkVideoStreamWrapper::init(VideoStreamMode mode)
 	}
 	else
 	{
-        string _FILENAME = "movie.mov";
-        
-        vidPlayer.loadMovie(_FILENAME);
+        string FILENAME = "movie.mov";
+        vidPlayer.loadMovie(FILENAME);
         vidPlayer.setLoopState(OF_LOOP_NORMAL);
 		vidPlayer.play();
         
@@ -39,6 +38,14 @@ void ofkVideoStreamWrapper::init(VideoStreamMode mode)
     
     errImage.allocate(10, 10,OF_IMAGE_COLOR);
     
+}
+
+void ofkVideoStreamWrapper::init(string VideoFilePath)
+{
+	mVideoStreamMode = VIDEOSTREAM_FILE;
+    vidPlayer.loadMovie(VideoFilePath);
+    vidPlayer.setLoopState(OF_LOOP_NORMAL);
+	vidPlayer.play();
 }
 
 void ofkVideoStreamWrapper::update()
