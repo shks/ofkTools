@@ -23,9 +23,15 @@
 
 #include "ofMain.h"
 
+/*
 #if defined WIN32
 #elif defined TARGET_OS_X    
-#elif defined TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
+#elif defined TARGET_OS_IPHONE || defined TARGET_IPHONE_SIMULATOR
+	#include "ofxiPhoneExtras.h"
+#endif
+*/
+
+#if defined TARGET_OS_IPHONE// || defined TARGET_IPHONE_SIMULATOR
 	#include "ofxiPhoneExtras.h"
 #endif
 

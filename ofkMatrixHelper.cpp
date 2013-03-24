@@ -10,11 +10,43 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
     
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
+
+#ifdef _WIN32
     glLoadMatrixd(proj);
+#else
+    
+    {
+        float mat[16];
+        for(int i = 0 ;i < 16; i++)
+        {
+            mat[i] = proj[i];
+        }
+        glLoadMatrixf(mat);
+    }
+    
+    
+#endif
     
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
+    
+    
+#ifdef _WIN32
     glLoadMatrixd(model);
+#else                                                                                          
+    
+    {
+        float mat[16];
+        for(int i = 0 ;i < 16; i++)
+        {
+            mat[i] = model[i];
+        }
+        glLoadMatrixf(mat);
+    }
+    
+    
+#endif
+    
 
     // ---------------- DRAW and pickup points ---------------  //
     //Enable Depth
