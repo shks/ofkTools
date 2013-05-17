@@ -140,7 +140,7 @@ void ofkVideoStreamWrapper::onReceiveImgae( ofkPixelsWithIP & pix )
 
 void ofkVideoStreamWrapper::initUDPjpegReceiver()
 {
-	mUDPjpegReceiver.init(4054, 9216 * 4); // TODO BUFFER SIZE    
+	mUDPjpegReceiver.init(4054, 9216 * 8); // TODO BUFFER SIZE
     ofAddListener(mUDPjpegReceiver.newReceivedPixelEvent,this,&ofkVideoStreamWrapper::onReceiveImgae);
 }
 
