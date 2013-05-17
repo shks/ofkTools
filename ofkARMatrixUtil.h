@@ -28,7 +28,7 @@ public:
     {
         virtualiPadSize = size;
     }
-    
+
     //get only Translation data matrix;
     static ofMatrix4x4 createTransOnlyMatrix(ofMatrix4x4 mat)
     {

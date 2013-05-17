@@ -43,7 +43,9 @@ public:
     */
     
     ofkglImageRenderer();
-    void update();
+    ~ofkglImageRenderer();
+
+	void update();
     void render();
     
     void setImageFile(string imageFileName);

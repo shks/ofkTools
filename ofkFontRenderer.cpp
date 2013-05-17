@@ -57,6 +57,14 @@ void ofkFontRenderer::renderString(const string& srt)
 	}
 }
 
+void ofkFontRenderer::renderString(const string& srt, float scale)
+{
+	glPushMatrix();
+	glScalef(scale, scale, scale);
+    renderString(srt);
+	glPopMatrix();
+}
+
 bool ofkFontRenderer::isLoaded()
 {
     ofkFontRenderer *pInstance = getInstance();

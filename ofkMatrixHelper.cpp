@@ -70,17 +70,6 @@ ofVec3f ofkMatrixHelper::getUnProjectionPoint(float ofScreenPosX, float ofScreen
 //#if defined WIN32 || defined TARGET_OS_MAC
 #if defined WIN32
 
-	/*
-	float _model[];
-	float _proj[];
-
-	for(int i = 0 ; i < 16 ; i++)
-	{
-		_model[i] = model[i];
-		_proj[i] = proj[i];
-	}
-	*/
-
 	glReadPixels(ofScreenPosX, viewPort[3] - ofScreenPosY ,1,1,GL_DEPTH_COMPONENT,GL_FLOAT,&z);
 	gluUnProject(ofScreenPosX, viewPort[3] - ofScreenPosY ,z, model, proj, viewPort,&objX,&objY,&objZ);
 
@@ -141,4 +130,24 @@ ofVec3f ofkMatrixHelper::getProjectionPoint(ofVec3f pos, const GLdouble *model, 
 	double winX, winY, winZ;//ウィンドウ座標格納用
 	gluProject(pos.x,pos.y,pos.z,model,proj,view,&winX,&winY,&winZ); //座標変換の計算
 	return ofVec3f((float)winX, (float)winY, (float)winZ);
+}
+
+ofVec3f ofkMatrixHelper::getProjectionPoint(ofVec3f pos, const ofMatrix4x4 modelView, ofMatrix4x4 projection, const int *_view)
+{
+	GLdouble modelMAT[16];
+    GLdouble projectionMAT[16];
+    GLint view[4];
+    
+    for(int i = 0 ; i < 16 ; i++)
+    {
+        modelMAT[i] = modelView.getPtr()[i];
+        projectionMAT[i] = projection.getPtr()[i];
+    }
+    
+    view[0] = _view[0];
+    view[1] = _view[1];
+    view[2] = _view[2];
+    view[3] = _view[3];
+
+	return getProjectionPoint(pos,modelMAT, projectionMAT,view);
 }

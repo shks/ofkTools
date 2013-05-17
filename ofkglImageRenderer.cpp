@@ -30,6 +30,12 @@ ofkglImageRenderer::ofkglImageRenderer()
     rectMode = RECTMODE_CENTER;
 }
 
+ofkglImageRenderer::~ofkglImageRenderer()
+{
+	mTexture.clear();
+	mImage.clear();
+}
+
 void ofkglImageRenderer::update()
 {
 

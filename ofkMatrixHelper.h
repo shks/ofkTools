@@ -12,9 +12,27 @@ public:
     //Caution, this function will enable GL_DEPTH_TEST, and clear GL_DEPTH_BUFFER_BIT.
     //and in this function, viewport, projection Matrix and modelView matrix will be changed.
     
+	//float transRate : Rotation and Scale factor fitler rate
+	//float rotScaleRate : Rotation and Scale factor 
+    static void matrixInterpolationFilter(ofMatrix4x4 *currentMat, ofMatrix4x4 *targetMat, float rotScaleRate, float transRate)
+	{
+		for(int i = 0 ; i < 12 ; i++)
+		{
+			currentMat->getPtr()[i] += (targetMat ->getPtr()[i] - currentMat->getPtr()[i]) * rotScaleRate;
+		}
+
+		//12,13,14,15
+		for(int i = 12; i < 16 ; i++)
+		{
+			currentMat->getPtr()[i] += (targetMat ->getPtr()[i] - currentMat->getPtr()[i]) * transRate;
+		}
+	}
+
     static ofVec3f getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, const GLdouble *model, const GLdouble *proj, const GLint *view);
     static ofVec3f getUnProjectionPoint(float ofScreenPosX, float ofScreenPosY, ofMatrix4x4 modelView, ofMatrix4x4 projection, float viewWidth, float viewHeight );
 	static ofVec3f getProjectionPoint(ofVec3f pos, const GLdouble *model, const GLdouble *proj, const GLint *view);
+	static ofVec3f getProjectionPoint(ofVec3f pos, const ofMatrix4x4 modelView, ofMatrix4x4 projection, const int *view);
+
 
 	static ofVec2f getParamVector2D(ofPoint pos0, ofPoint pos1, ofPoint posBase, ofPoint srcVec )
 	{
