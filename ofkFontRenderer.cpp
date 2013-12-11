@@ -1,6 +1,5 @@
 //
 //  ofkFontRenderer.cpp
-//  SalogationMobile
 //
 //  Created by Shunichi Kasahara on 3/17/13.
 //
@@ -19,13 +18,13 @@ ofkFontRenderer::ofkFontRenderer()
 
 ofkFontRenderer::~ofkFontRenderer()
 {
-	//destroy all.
-	
+	//destroy all.	
 }
 
 
 //Static function
-ofkFontRenderer* ofkFontRenderer::getInstance()
+ofkFontR
+enderer* ofkFontRenderer::getInstance()
 {
 	if(NULL == m_pInstance){
 		m_pInstance = new ofkFontRenderer();
@@ -55,6 +54,14 @@ void ofkFontRenderer::renderString(const string& srt)
 	}else {
         ofLog(OF_LOG_NOTICE, "Can not get ofkFontRenderer instance");
 	}
+}
+
+void ofkFontRenderer::renderString(const string& srt, float scale)
+{
+	glPushMatrix();
+	glScalef(scale, scale, scale);
+    renderString(srt);
+	glPopMatrix();
 }
 
 bool ofkFontRenderer::isLoaded()

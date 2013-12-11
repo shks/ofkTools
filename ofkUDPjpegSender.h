@@ -12,6 +12,25 @@
 #include "ofxNetwork.h"
 #include "ofMain.h"
 
+/*
+Usage
+
+1. screate instance as a member,
+[in testApp.h]
+
+ofkUDPjpegSender mUDPjpegSender;
+
+2. initialize 
+[in setup function testApp.cpp]
+mUDPjpegSender.init("targetIP", PORT, int BufferSize = 22518);
+
+3.Send an image data as pixel, 
+
+mUDPjpegSender.sendImage(pix);
+
+*/
+
+
 class ofkUDPjpegSender
 {
 public:
@@ -28,7 +47,7 @@ public:
      OF_IMAGE_QUALITY_WORST
      */
     void setjpegQuality(ofImageQualityType q);
-    void setEnableBroadCast(bool isEnableBroadCast);
+    void setEnableBroadCast(bool isEnableBroadCast);    //is not sure,
     bool sendImage(ofPixels &pix);
     
     unsigned long getProcessTime();

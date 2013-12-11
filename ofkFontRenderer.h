@@ -1,6 +1,5 @@
 //
 //  ofkFontRenderer.h
-//  SalogationMobile
 //
 //  Created by Shunichi Kasahara on 3/17/13.
 //
@@ -19,6 +18,7 @@ public:
     
     static void loadFont(const string& filePath, float pointSize);
     static void renderString(const string& srt);
+	static void renderString(const string& srt, float scale);
     static bool isLoaded();
 	static ofRectangle getStringBoundingBox(string str);
 

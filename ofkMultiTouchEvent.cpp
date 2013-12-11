@@ -2,7 +2,7 @@
 //  MultiTouchEvent.cpp
 //  advancedEventsExample
 //
-//  Created by 俊一 笠原 on 12/03/22.
+//  Created by Shunichi Kasahara on 12/03/22.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 

@@ -39,7 +39,7 @@ bool ofkXMLProperties::setXMLFile(const string& fileName)
 #elif defined TARGET_OS_X  
 		isIOSpath = false;
 #elif defined TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-		isIOSpath = pInstance->XML.loadFile(ofxiPhoneGetDocumentsDirectory() + fileName);	
+		isIOSpath = pInstance->XML.loadFile(ofxiPhoneGetDocumentsDirectory() + fileName);        
 #endif
 	
 		if( isIOSpath )

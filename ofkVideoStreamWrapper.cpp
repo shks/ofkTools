@@ -131,7 +131,7 @@ ofPixelsRef ofkVideoStreamWrapper::getPixel()
 	}
 }
 
-//UDP Jepg Stream onReceiveImgae
+//UDPfr Jepg Stream onReceiveImgae
 void ofkVideoStreamWrapper::onReceiveImgae( ofkPixelsWithIP & pix )
 {
 	mPixelsWithIP = pix;
@@ -140,7 +140,8 @@ void ofkVideoStreamWrapper::onReceiveImgae( ofkPixelsWithIP & pix )
 
 void ofkVideoStreamWrapper::initUDPjpegReceiver()
 {
-	mUDPjpegReceiver.init(4054, 9216 * 8); // TODO BUFFER SIZE
+    //22518*2
+	mUDPjpegReceiver.init(4054, 22518*4); // TODO BUFFER SIZE
     ofAddListener(mUDPjpegReceiver.newReceivedPixelEvent,this,&ofkVideoStreamWrapper::onReceiveImgae);
 }
 

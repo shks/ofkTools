@@ -1,7 +1,4 @@
 //
-//  ofkglImageRenderer.coo.cpp
-//  eventsExample
-//
 //  Created by Shunichi Kasahara on 12/03/04.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
@@ -30,6 +27,12 @@ ofkglImageRenderer::ofkglImageRenderer()
     rectMode = RECTMODE_CENTER;
 }
 
+ofkglImageRenderer::~ofkglImageRenderer()
+{
+	mTexture.clear();
+	mImage.clear();
+}
+
 void ofkglImageRenderer::update()
 {
 
@@ -38,8 +41,6 @@ void ofkglImageRenderer::update()
 void ofkglImageRenderer::render()
 {
     glPushMatrix();
-    
-    //ofSetColor(r*255, g*255, b*255, 255);
     
     glColor4f(r, g, b, a);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -108,33 +109,13 @@ void ofkglImageRenderer::render()
         internalDraw(-mWidth / 2.0f, 0.0F ,mWidth, mHeight);     
         
     }else{
-        //if rectMode is not define 
-        // apply center rendering
+        //  if rectMode is not define
+        //  apply center rendering
         internalDraw(-mWidth / 2.0f, -mHeight / 2.0f ,mWidth, mHeight);        
     }
-    
-    //MAYBE WE NEED CHECK THESE LOGIC 
-    
+
     glPopMatrix();
     glColor4f(1.0, 1.0, 1.0, 1.0);
-    
-    
-    
-    ////////
-    /*
-    ofPoint RT = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
-    ofPoint RB = ofPoint(x, y) + ofPoint(- mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
-    ofPoint LT = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 , - mHeight * scaleY * 0.5);
-    ofPoint LB = ofPoint(x, y) + ofPoint(+ mWidth * scaleX * 0.5 ,   mHeight * scaleY * 0.5);
-    
-    ofSetLineWidth(3.0);
-    glColor4f(1.0, 0.0, 0.0, 1.0);
-    ofLine(RT.x, RT.y, LB.x, LB.y);
-    ofLine(LT.x, LT.y, RB.x, RB.y);
-     */
-    /////
-    
-    
 }
 
 bool ofkglImageRenderer::isHitTest(ofPoint FrameBufferPoint)
@@ -192,14 +173,14 @@ void ofkglImageRenderer::setSize(float width, float height)
     mHeight = height;
 }
 
-
+/*
 void ofkglImageRenderer::setUV(float* uvArray)
 {
     for(int i = 0 ; i < 8 ; i ++)
     {
         squareTexCoord[i] = uvArray[i];
     }
-}
+}*/
 
 void ofkglImageRenderer::internalDraw(float x, float y, float w, float h)
 {

@@ -23,17 +23,22 @@
 
 #include "ofMain.h"
 
-/*
+//Quick Hack,
+#define TARGET_OS_X
+
 #if defined WIN32
-#elif defined TARGET_OS_X    
+#elif defined TARGET_OS_X
+
 #elif defined TARGET_OS_IPHONE || defined TARGET_IPHONE_SIMULATOR
+	#include "ofxiPhoneExtras.h"
+#endif
+
+/*
+#if defined TARGET_OS_IPHONE// || defined TARGET_IPHONE_SIMULATOR
 	#include "ofxiPhoneExtras.h"
 #endif
 */
 
-#if defined TARGET_OS_IPHONE// || defined TARGET_IPHONE_SIMULATOR
-	#include "ofxiPhoneExtras.h"
-#endif
 
 #include "ofxXmlSettings.h"
 

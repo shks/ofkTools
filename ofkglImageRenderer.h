@@ -1,7 +1,4 @@
 //
-//  ksRectRenderer.h
-//  eventsExample
-//
 //  Created by Shunichi Kasahara on 12/03/04.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
@@ -43,7 +40,9 @@ public:
     */
     
     ofkglImageRenderer();
-    void update();
+    ~ofkglImageRenderer();
+
+	void update();
     void render();
     
     void setImageFile(string imageFileName);
@@ -51,7 +50,7 @@ public:
     void setTexture(ofTexture tex);
     void useImageSize();
     
-    void setUV(float * uvArray);
+    //void setUV(float * uvArray);
     void setSize(float width, float height);
 
     bool upsideDown;
