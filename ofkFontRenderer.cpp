@@ -23,8 +23,7 @@ ofkFontRenderer::~ofkFontRenderer()
 
 
 //Static function
-ofkFontR
-enderer* ofkFontRenderer::getInstance()
+ofkFontRenderer* ofkFontRenderer::getInstance()
 {
 	if(NULL == m_pInstance){
 		m_pInstance = new ofkFontRenderer();
