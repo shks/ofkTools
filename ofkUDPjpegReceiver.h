@@ -1,6 +1,5 @@
 //
 //  ofkUDPjpegReceiver.h
-//  SecondSurfaceServer
 //
 //  Created by Shunichi Kasahara on 11/23/12.
 //

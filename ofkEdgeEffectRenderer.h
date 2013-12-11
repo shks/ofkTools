@@ -1,6 +1,5 @@
 //
 //  ofkOnsetDetector.cpp
-//  eventsExample
 //
 //  Created by Shunichi Kasahara on 12/07/01.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.

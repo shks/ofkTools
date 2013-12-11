@@ -1,6 +1,5 @@
 //
 //  ofkARObject.h
-//  SalogationMobile
 //
 //  Created by Shunichi Kasahara on 2/5/13.
 //

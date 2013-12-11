@@ -1,6 +1,5 @@
 //
 //  ofkRenderObj.cpp
-//  SalogationMobile
 //
 //  Created by Shunichi Kasahara on 2/20/13.
 //
