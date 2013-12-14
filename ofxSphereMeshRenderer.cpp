@@ -29,11 +29,12 @@ void ofxSphereMeshRenderer::udpate()
 
 void ofxSphereMeshRenderer::render()
 {
-    tex.bind();
     ofEnableNormalizedTexCoords();
+
+    tex.bind();
     mSphere.draw();
     tex.unbind();
-    
+    ofDisableNormalizedTexCoords();
     
 }
 
