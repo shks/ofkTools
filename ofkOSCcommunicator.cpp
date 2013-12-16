@@ -124,6 +124,21 @@ void ofkOSCcommunicator::update()
 
 void ofkOSCcommunicator::render()
 {
+    //
+    
+    ofPushStyle();
+    ofNoFill();
+    ofSetColor(255, 12, 120);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    
+    ofFill();
+    ofSetColor(0,0,0,200);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    
+    ofSetColor(255,12,120);
+    ofDrawBitmapStringHighlight("ofkOSCcommunicator Debug View", 0, ofGetHeight() - 20);
+    ofPopStyle();
+    
     string buf;
 	buf = "listening for osc messages on port " + ofToString( mPort );
 	ofDrawBitmapString( buf, 10, 20 );

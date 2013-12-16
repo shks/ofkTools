@@ -28,7 +28,7 @@ void ofxColorBlobTracker::init(int width, int height)
 	colorTrackedPixelsRed =new unsigned char [camWidth*camHeight];
     
 	trackedTextureRed.allocate(camWidth, camHeight, GL_LUMINANCE);
-    
+    isShowDebug = false;
 }
 
 void ofxColorBlobTracker::update(ofPixelsRef pixelRef)
@@ -89,6 +89,10 @@ void ofxColorBlobTracker::update(ofPixelsRef pixelRef)
         
         isTrack = true;
         pos = one.pos;
+        
+        //Dispatch Event
+        ofNotifyEvent(newFoundBlobEvent, pos);
+        
 	}else{
         isTrack = false;
     }
@@ -97,18 +101,34 @@ void ofxColorBlobTracker::update(ofPixelsRef pixelRef)
 
 void ofxColorBlobTracker::draw()
 {
+    if(!isShowDebug) return;
+    
+    ofPushStyle();
+    ofNoFill();
+    ofSetColor(255);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+    
+    ofFill();
+    ofSetColor(0,0,0,200);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
+
+    ofSetColor(255,12,120);
+    ofDrawBitmapStringHighlight("ofxColorBlobTracker Debug View", 0, ofGetHeight() - 20);
+    ofPopStyle();
+
+    
     ofPushStyle();
     ofNoFill();
     ofSetColor(255);
     ofRect(0, 0, camWidth, camHeight);
     ofPopStyle();
-    
-    
+
+    ofDrawBitmapStringHighlight("Video To Pickup Color MODE, point the color yo want to track", 0, 0);
     ofDrawBitmapStringHighlight("Video To Pickup Color", 0, 20);
     finderRed.draw();
     
     ofColor col;
-    col.setHsb(255 - one.hue, one.sat, one.bri);
+    col.setHsb(one.hue, one.sat, one.bri);
     ofSetColor(col);
     ofRect(0, camHeight + 20, 20, -20);
     ofSetColor(255);
@@ -165,6 +185,12 @@ void ofxColorBlobTracker::setTrackColor(HSBColor col)
 
 HSBColor ofxColorBlobTracker::pickupColor(int x, int y)
 {
+    if(!isShowDebug)
+    {
+        HSBColor _col;
+        return _col;
+    }
+    
     unsigned char * huePixels = hueImg.getPixels();  //teh hue
     unsigned char * satPixels = satImg.getPixels();  //teh saturation
     unsigned char * briPixels = briImg.getPixels();  //teh brightness*/ //unnecessary really, hue and sat should be enough
@@ -172,10 +198,17 @@ HSBColor ofxColorBlobTracker::pickupColor(int x, int y)
     x = MIN(x,hueImg.width-1);     //find the smallest value out of those two so we don't crash if we click outside of the camera image
     y = MIN(y,hueImg.height-1);
 
-    one.hue = huePixels[x+(y*hueImg.width)];  //set the hue
-    one.sat = satPixels[x+(y*satImg.width)];  //set the sat
-    one.bri = briPixels[x+(y*briImg.width)];
+    HSBColor _one;
     
-    return one;
+    _one.hue = huePixels[x+(y*hueImg.width)];  //set the hue
+    _one.sat = satPixels[x+(y*satImg.width)];  //set the sat
+    _one.bri = briPixels[x+(y*briImg.width)];
+    
+    return _one;
+}
+
+void ofxColorBlobTracker::setVisible(bool is)
+{
+    isShowDebug = is;
 }
 
