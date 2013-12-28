@@ -236,6 +236,22 @@ void ofkXMLProperties::setPropertyValue(const string& tag, const string& value)
     }
 }
 
+/*
+void ofkXMLProperties::setPropertyValueList(const string& tag, const vector < string >& values)
+{
+    ofkXMLProperties *pInstance = getInstance();
+    if(NULL != pInstance){
+        for(int i = 0;i < values.size() ; i++)
+        {
+            //
+            pInstance->XML.pushTag(tag);
+            pInstance->XML.setValue("filepath", values[i]);
+            pInstance->XML.popTag();
+        }
+    }
+    saveXML();
+}
+*/
 
 void ofkXMLProperties::setPropertyMatrix44f(const string& tag, const ofMatrix4x4& mat)
 {
@@ -291,7 +307,29 @@ ofMatrix4x4 ofkXMLProperties::getPropertyMatrix44f(const string& tag)
     
 }
 
+bool ofkXMLProperties::saveXML()
+{
+	ofkXMLProperties *pInstance = getInstance();
 
+    if(NULL != pInstance){
+#if defined TARGET_OSX || defined WIN32
+        if (pInstance->XML.saveFile( FileName))
+#else
+ //iOS
+        if (pInstance->XML.saveFile( ofxiPhoneGetDocumentsDirectory() + FileName))
+#endif
+        {
+            ofLog(OF_LOG_NOTICE, "XML file was Saved ");
+        }else
+        {
+            ofLog(OF_LOG_NOTICE, "XML file was not Saved ");
+        }
+    }else{
+        ofLog(OF_LOG_NOTICE, "XML file was not Saved ");
+    }
+    
+    return true;
+}
 
 
 //Static function

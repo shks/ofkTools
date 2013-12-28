@@ -39,7 +39,6 @@
 #endif
 */
 
-
 #include "ofxXmlSettings.h"
 
 #ifndef _ofkXMLProperties_H_
@@ -61,6 +60,8 @@ public:
     static void setPropertyValue(const string& tag, float value);
     static void setPropertyValue(const string& tag, const string& value);
     
+    //this can be template
+    //static void setPropertyValueList(const string& tag, const vector < string >& value);
     
     // ----- set and get Macro
     
@@ -79,6 +80,7 @@ private:
 	ofkXMLProperties();
 	~ofkXMLProperties();
 	
+    static bool saveXML();
 };
 
 

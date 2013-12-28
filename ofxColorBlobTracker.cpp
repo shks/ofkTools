@@ -114,6 +114,7 @@ void ofxColorBlobTracker::draw()
 
     ofSetColor(255,12,120);
     ofDrawBitmapStringHighlight("ofxColorBlobTracker Debug View", 0, ofGetHeight() - 20);
+    ofDrawBitmapStringHighlight("Input Video Size :" + ofToString(camWidth) + "," + ofToString(camHeight), 0, ofGetHeight());
     ofPopStyle();
 
     
