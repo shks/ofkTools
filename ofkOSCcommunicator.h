@@ -89,7 +89,7 @@ private:
     string SEND_HOST_IP;
     string m_SEND_TEXT;
     int mPort;
-    
+   
 };
 
 #endif

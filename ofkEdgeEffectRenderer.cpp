@@ -21,13 +21,13 @@ void ofkEdgeEffectRenderer::init(int width, int height)
     g = 20;
     b = 255;
     
-    thresh = 100;
+    thresh = 200;
 }
 
 void ofkEdgeEffectRenderer::update(ofPixels gray)
 {
     //you can change here later
-    ofxCv::Canny(gray, edge, (int)thresh, 100, 3);
+    ofxCv::Canny(gray, edge, (int)thresh, 200, 3);
     ofxCv::blur(edge,  edge, 2);
     edge.update();
     

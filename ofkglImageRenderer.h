@@ -71,7 +71,7 @@ private:
     float mHeight;
     float squareTexCoord[8];
     
-    void internalDraw(float x, float y, float w, float h);
+    virtual void internalDraw(float x, float y, float w, float h);
     ofTexture mTexture;
     ofImage mImage;
 };

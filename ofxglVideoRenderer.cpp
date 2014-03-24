@@ -20,6 +20,8 @@ ofxglVideoRenderer::ofxglVideoRenderer()
     mHeight = 100.0f;
     upsideDown = false;
     rectMode = RECTMODE_CENTER;
+    
+    isPlayed = false;
 }
 
 void ofxglVideoRenderer::update()
@@ -114,13 +116,16 @@ void ofxglVideoRenderer::setVideoFile(string videoFileName)
 
 	if(m_Video.isLoaded())
 	{
-		useImageSize();
+		useImageSize();        
 	}else{
 		ofLog(OF_LOG_WARNING , "Video file was not loaded from " + videoFileName );
 	}
 
-	m_Video.setFrame(0);
+	//m_Video.setFrame(0);
 	m_Video.setLoopState(OF_LOOP_NORMAL);
+    m_Video.play();
+    m_Video.setPaused(true);
+    
 }
 
 void ofxglVideoRenderer::useImageSize()
@@ -151,7 +156,10 @@ void ofxglVideoRenderer::internalDraw(float x, float y, float w, float h)
 {
     if(m_Video.isLoaded())
     {
-        m_Video.draw(x, y ,w, h); 
+        if(isPlayed)
+        {
+            m_Video.draw(x, y ,w, h);
+        }
     }else
     {
         ofRect(x, y, w, h);
@@ -160,21 +168,41 @@ void ofxglVideoRenderer::internalDraw(float x, float y, float w, float h)
 
 void ofxglVideoRenderer::resume()
 {
-	m_Video.play();
+    m_Video.setPaused(false);
+//	m_Video.play();
 }
 
 void ofxglVideoRenderer::play()
 {
-	m_Video.setFrame(0);
-	m_Video.play();
+    m_Video.setSpeed(1.0);
+    m_Video.setPaused(false);
+    //m_Video.play();
+	//m_Video.setFrame(0);
+    
+    isPlayed = true;
 }
 
 void ofxglVideoRenderer::stop()
 {
-	m_Video.stop();
+    m_Video.setPaused(true);
+	//m_Video.stop();
 }
 
-void ofxglVideoRenderer::setFrame(int frameNum)
+void ofxglVideoRenderer::setPosition(float frameNum)
 {
-	m_Video.setFrame(frameNum);
+	m_Video.setPosition(frameNum);
+    
 }
+
+
+void ofxglVideoRenderer::playWithSpeed(float speed)
+{
+    m_Video.setSpeed(speed);
+    m_Video.setPaused(false);
+}
+
+float ofxglVideoRenderer::getCurrentPos()
+{
+    return m_Video.getPosition();
+}
+

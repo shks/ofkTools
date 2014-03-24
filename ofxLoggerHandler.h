@@ -50,8 +50,12 @@ public:
     
     static void init()
     {
+        //if(filePath != "")
+        //{
+           // ofxLog::setFilePath(filePath);
+        //}
+        
         ofxLog::enableFileRotationMins(1);
-        ofxLog::enableFile();
         ofxLog::enableHeader();
         ofxLog::enableHeaderFrameNum();
         ofxLog::enableHeaderMillis();
@@ -60,7 +64,14 @@ public:
     }
         //all static functoin
     static void startLog(string logNote)
-    {        
+    {
+        ofxLog::enableFileRotationMins(1);
+        ofxLog::enableHeader();
+        ofxLog::enableHeaderFrameNum();
+        ofxLog::enableHeaderMillis();
+        ofxLog::setFileRotationMaxNum(100);
+        
+        
         ofxLog::enableHeader();
         ofxLog::enableHeaderFrameNum();
         ofxLog::enableHeaderMillis();

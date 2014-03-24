@@ -42,12 +42,16 @@ public:
     void setVideoFile(string imageFileName);
     void setSize(float width, float height);
     void useImageSize();
+    
 
 	////Play control
 	void resume();
 	void play();
 	void stop();
-	void setFrame(int frameNum);
+	void setPosition(float frameNum);
+    void playWithSpeed(float speed);
+    
+    float getCurrentPos();
 
     bool upsideDown;
     float r, b, g, a;
@@ -65,6 +69,8 @@ private:
     float mHeight;
     void internalDraw(float x, float y, float w, float h);
 
+    
+    bool isPlayed;
 	ofVideoPlayer m_Video;
 
 };
