@@ -16,18 +16,25 @@ class ofkFontRenderer
 {
 public:
     
-    static void loadFont(const string& filePath, float pointSize);
-    static void renderString(const string& srt);
-	static void renderString(const string& srt, float scale);
+    //add by shks ID map
+    static void loadFont(const string& filePath, float pointSize, string ID = "");
+//    static void loadFont(const string& filePath, float pointSize);
+    static void renderString(const string& srt, string ID = "");
+	static void renderString(const string& srt, float scale, string ID = "");
     static bool isLoaded();
-	static ofRectangle getStringBoundingBox(string str);
+	static ofRectangle getStringBoundingBox(string str, string ID = "");
 
 protected:
 	static ofkFontRenderer *getInstance();
+    
 	
 private:
 	static ofkFontRenderer *m_pInstance;
-    static ofTrueTypeFont font;
+    
+    
+    ofTrueTypeFont font;
+    std::map <string, ofTrueTypeFont *> resList;
+    ofTrueTypeFont* getFontInstance(string ID);
     
 	ofkFontRenderer();
 	~ofkFontRenderer();
