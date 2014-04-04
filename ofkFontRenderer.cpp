@@ -131,8 +131,10 @@ ofTrueTypeFont* ofkFontRenderer::getFontInstance(string ID)
         if(NULL != pFont)
         {
             pFont = &font;
+        }else
+		{
             ofLog(OF_LOG_NOTICE, "[ofkFontRenderer] invaliad ID, set as a Default");
-        }
+		}
     }
     
     return pFont;
