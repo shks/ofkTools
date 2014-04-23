@@ -138,6 +138,11 @@ bool ofkglImageRenderer::isHitTest(ofPoint FrameBufferPoint)
     return res;
 }
 
+bool  ofkglImageRenderer::isImageLoaded()
+{
+    return mImage.isAllocated();
+}
+
 void ofkglImageRenderer::setImage(ofImage image)
 {
     mImage = image;

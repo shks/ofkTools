@@ -168,25 +168,34 @@ void ofxVisualizeGraph::draw2DValueLogGraph(float updatedValue, float *data, int
 {
     float *pDate = data;
     
-	ofDrawBitmapStringHighlight("Data" + ofToString(i), 0, 0, ofColor::blue);
+	ofDrawBitmapStringHighlight("Data Channel" + ofToString(i), 0, 0, ofColor(255 - i * 40, i * 100, 255, 255));
+	
 
-    ofPushStyle();
-    c[i] = c[i] % DATA_NUM;
-    pDate[c[i]] = updatedValue;
+	glPushMatrix();
+	glScalef(1.0,-1.0f, 1.0);
+
+		ofPushStyle();
+		c[i] = c[i] % DATA_NUM;
+		pDate[c[i]] = updatedValue;
     
-    ofSetColor(255, 255, 255, 255);
-    float max = 1.0;
-    for(int i = 0 ; i< DATA_NUM - 1; i++)
-    {
-        ofLine(i , pDate[i], i + 1, pDate[i + 1]);
-        max = MAX(pDate[i], max);
-    }
+		ofSetColor(255, 255, 255, 255);
+		float max = -100.0;
+		for(int j = 0 ; j< DATA_NUM - 1; j++)
+		{
+			ofLine(j , pDate[j], j + 1, pDate[j+ 1]);
+			max = MAX(pDate[j], max);
+		}
     
-    ofSetColor(255, 255, 255, 120);
-    ofNoFill();
-    ofRect(0, 0, DATA_NUM , max);
+		ofSetColor(255, 255, 255, 120);
+		ofNoFill();
+		ofRect(0, 0, DATA_NUM , max);
+		ofPopStyle();
+	glPopMatrix();
     
-    ofPopStyle();
+	ofDrawBitmapStringHighlight(
+		ofToString(updatedValue), 0, 30, 
+		ofColor(255 * (updatedValue / max) , 255 * (1.0 - (updatedValue / max)), 255));
+    
     c[i] ++;
 }
 

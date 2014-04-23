@@ -106,7 +106,7 @@ ofMesh ofxSphereMeshRenderer::createSphereMesh( float radius, int res, ofPrimiti
                 mesh.addTexCoord(tcoord);
                 ofFloatColor col;
                 
-                col.set(1.0,1.0, 1.0, 0.8);
+                col.set(1.0,1.0, 1.0, 0.3);
 
                 //col.set((float)i / (float)res , (float)j / (float)doubleRes, 0.5);
                 mesh.addColor(col);

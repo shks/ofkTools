@@ -64,6 +64,7 @@ public:
     float getHeight(){ return mHeight; }
     float getImgRatio() {return (mHeight / mWidth);}
     bool  isHitTest(ofPoint FrameBufferPoint);
+	bool  isImageLoaded();
     
 private:
     
