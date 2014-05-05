@@ -42,7 +42,7 @@ void ofx3DAffineEstimator::drawDebug(ofMatrix4x4 &affineMat)
     ofDrawBitmapString( "translation: " + DebugUtil::toString(decompTranslation), 50, 50);
     ofDrawBitmapString( "Scale: " + DebugUtil::toString(decompScale), 50, 70);
     ofDrawBitmapString( "Rotation: " + DebugUtil::toString(decompRotation), 50, 90);
-    ofDrawBitmapString( "SO: " + DebugUtil::toString(decompSo), 50, 90);
+    ofDrawBitmapString( "SO: " + DebugUtil::toString(decompSo), 50, 110);
     
 }
 
