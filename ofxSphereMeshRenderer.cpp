@@ -12,11 +12,11 @@ ofxSphereMeshRenderer::ofxSphereMeshRenderer()
 {
     
 }
-void ofxSphereMeshRenderer::init(float radius, float horizontalDeg, float verticalDeg)
+void ofxSphereMeshRenderer::init(float radius, float horizontalDeg, float verticalDeg, float alpha)
 {
     //
     
-    m_alpha = 1.0;
+    m_alpha = alpha;
     int resolution = 20;
     mSphere = createSphereMesh(radius, resolution, OF_PRIMITIVE_TRIANGLES, horizontalDeg, verticalDeg);
     mSphere.enableTextures();
@@ -32,9 +32,6 @@ void ofxSphereMeshRenderer::udpate()
 void ofxSphereMeshRenderer::render()
 {
     ofEnableNormalizedTexCoords();
-
-    cout << "getTextureData" << tex.getTextureData().textureID << endl;
-    
     tex.bind();
     mSphere.draw();
     tex.unbind();

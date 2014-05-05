@@ -16,7 +16,7 @@ class ofxSphereMeshRenderer
 public:
     ofxSphereMeshRenderer();
     
-    void init(float radius, float horizontalDeg, float verticalDeg);
+    void init(float radius, float horizontalDeg, float verticalDeg, float alpha = 0.5);
     void udpate();
     void render();
     void rednerDebug();
