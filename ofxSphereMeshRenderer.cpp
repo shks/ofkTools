@@ -15,6 +15,8 @@ ofxSphereMeshRenderer::ofxSphereMeshRenderer()
 void ofxSphereMeshRenderer::init(float radius, float horizontalDeg, float verticalDeg)
 {
     //
+    
+    m_alpha = 1.0;
     int resolution = 20;
     mSphere = createSphereMesh(radius, resolution, OF_PRIMITIVE_TRIANGLES, horizontalDeg, verticalDeg);
     mSphere.enableTextures();
@@ -31,6 +33,8 @@ void ofxSphereMeshRenderer::render()
 {
     ofEnableNormalizedTexCoords();
 
+    cout << "getTextureData" << tex.getTextureData().textureID << endl;
+    
     tex.bind();
     mSphere.draw();
     tex.unbind();
@@ -57,15 +61,36 @@ void ofxSphereMeshRenderer::setTexture(const ofTexture &_tex)
     tex = _tex;
 }
 
-void ofxSphereMeshRenderer::setRadius(float radius)
+void ofxSphereMeshRenderer::setTexture(const ofTexture * pTex)
 {
+    if(NULL != pTex){
+        tex = *pTex;
+    }else{
+        ofLogError("ofxSphereMeshRenderer:: texture pointer NULL");
+    }
+}
+
+void ofxSphereMeshRenderer::setAlpha(float alpha)
+{
+    m_alpha = alpha;
     
-    
+    createSphereMesh(m_radius,
+                     m_res,
+                     m_mode,
+                     m_horizontalDeg,
+                     m_verticalDeg);
 }
 
 ofMesh ofxSphereMeshRenderer::createSphereMesh( float radius, int res, ofPrimitiveMode mode, float horizontalDeg, float verticalDeg )
 {
-        ofMesh mesh;
+    m_radius    = radius;
+    m_res       = res;
+    m_mode      = mode;
+    m_horizontalDeg = horizontalDeg;
+    m_verticalDeg   = verticalDeg;
+
+
+    ofMesh mesh;
         
         float startHorRad = -horizontalDeg / 2.f / 180.f * PI;
         float endHorRad = horizontalDeg / 2.f / 180.f * PI;
@@ -106,7 +131,7 @@ ofMesh ofxSphereMeshRenderer::createSphereMesh( float radius, int res, ofPrimiti
                 mesh.addTexCoord(tcoord);
                 ofFloatColor col;
                 
-                col.set(1.0,1.0, 1.0, 0.3);
+                col.set(1.0,1.0, 1.0, m_alpha);
 
                 //col.set((float)i / (float)res , (float)j / (float)doubleRes, 0.5);
                 mesh.addColor(col);
