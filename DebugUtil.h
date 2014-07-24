@@ -23,6 +23,8 @@ public:
     static string toString(ofQuaternion quat);
     
     
+    static string extractFileNameFromFilePath(string filePath);
+    
 private:
     
     static bool _debugUtil_is_debug_draw_;
