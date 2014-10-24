@@ -16,25 +16,19 @@ class ofxSphereMeshRenderer
 public:
     ofxSphereMeshRenderer();
     
-    void init(float radius, float horizontalDeg, float verticalDeg, float alpha = 0.5);
+    void init(float radius, float horizontalDeg, float verticalDeg, float alpha = 1.0);
     void udpate();
     void render();
     void rednerDebug();
 
-    void setAlpha(float alpha);
-    float getRadious() { return m_radius;}
-
-    /*
-    void setRadius(float radius);
-    void setDeg(float horizontalDeg, float verticalDeg);
-*/
+    void    setAlpha(float alpha);
+    float   getRadious() { return m_radius;}
     
-    
-    void setTexture(const ofTexture * pTex);
-    void setTexture(const ofTexture &tex);
+    void    setTexture(const ofTexture * pTex);
+    void    setTexture(const ofTexture &tex);
 private:
-    ofMesh mSphere;
-    ofMesh createSphereMesh( float radius, int res, ofPrimitiveMode mode, float horizontalDeg, float verticalDeg);
+    ofMesh  mSphere;
+    ofMesh  createSphereMesh( float radius, int res, ofPrimitiveMode mode, float horizontalDeg, float verticalDeg);
     
     ofTexture tex;
     

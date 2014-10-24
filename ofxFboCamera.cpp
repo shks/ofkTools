@@ -79,6 +79,7 @@ void ofxFboCamera::draw(float x, float y, float w, float h)
 void ofxFboCamera::drawDebug()
 {
     ofDrawBitmapStringHighlight(cameraName, 0, 20);
+    /*
     ofDrawBitmapStringHighlight("Position:" +
                                 ofToString(camera.getPosition().x) + "," +
                                 ofToString(camera.getPosition().y) + "," +
@@ -92,7 +93,7 @@ void ofxFboCamera::drawDebug()
                                 , 0, 60);
 
     ofDrawBitmapStringHighlight("Fov" +ofToString(camera.getFov()), 0, 80);
-
+*/
     
     
     

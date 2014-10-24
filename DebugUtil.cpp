@@ -29,3 +29,12 @@ string DebugUtil::toString(ofQuaternion quat)
     ofVec3f vec = quat.getEuler();
     return "alpha:" + ofToString(vec.x) + ", beta:" + ofToString(vec.y) + ", gamma:" + ofToString(vec.z);
 }
+
+string DebugUtil::extractFileNameFromFilePath(string filePath)
+{
+    
+    vector< string > splittedPath = ofSplitString(filePath, "/");
+    string fileName = splittedPath[splittedPath.size() - 1];
+    
+    return fileName;
+}
