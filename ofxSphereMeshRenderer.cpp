@@ -10,8 +10,9 @@
 
 ofxSphereMeshRenderer::ofxSphereMeshRenderer()
 {
-    
+    m_isInitialised = false;
 }
+
 void ofxSphereMeshRenderer::init(float radius, float horizontalDeg, float verticalDeg, float alpha)
 {
     //
@@ -20,6 +21,8 @@ void ofxSphereMeshRenderer::init(float radius, float horizontalDeg, float vertic
     int resolution = 20;
     mSphere = createSphereMesh(radius, resolution, OF_PRIMITIVE_TRIANGLES, horizontalDeg, verticalDeg);
     mSphere.enableTextures();
+    
+    m_isInitialised = true;
     
     
 }
@@ -77,12 +80,15 @@ void ofxSphereMeshRenderer::setTexture(const ofTexture * pTex)
 void ofxSphereMeshRenderer::setAlpha(float alpha)
 {
     m_alpha = alpha;
+
+    mSphere = createSphereMesh(m_radius,
+                               m_res,
+                               m_mode,
+                               m_horizontalDeg,
+                               m_verticalDeg);
     
-    createSphereMesh(m_radius,
-                     m_res,
-                     m_mode,
-                     m_horizontalDeg,
-                     m_verticalDeg);
+    mSphere.enableTextures();
+    
 }
 
 ofMesh ofxSphereMeshRenderer::createSphereMesh( float radius, int res, ofPrimitiveMode mode, float horizontalDeg, float verticalDeg )
@@ -186,4 +192,19 @@ ofMesh ofxSphereMeshRenderer::createSphereMesh( float radius, int res, ofPrimiti
         }
     
     return mesh;
+}
+
+
+void ofxSphereMeshRenderer::updateMesh(float radius, float horizontalDeg, float verticalDeg)
+{
+    if(!m_isInitialised)
+    {
+        ofLogError("ofxSphereMeshRenderer", "Mesh were not Initialised, call init(() first");
+    
+    }
+    cout<< "ofxSphereMeshRenderer::updateMesh " << horizontalDeg << endl;
+    mSphere = createSphereMesh(radius, m_res, m_mode, horizontalDeg,  verticalDeg );
+    mSphere.enableTextures();
+    
+    
 }

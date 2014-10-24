@@ -26,6 +26,10 @@ public:
     
     void    setTexture(const ofTexture * pTex);
     void    setTexture(const ofTexture &tex);
+    
+    //This re-create mesh , can be slow.
+    void    updateMesh(float radius, float horizontalDeg, float verticalDeg);
+    
 private:
     ofMesh  mSphere;
     ofMesh  createSphereMesh( float radius, int res, ofPrimitiveMode mode, float horizontalDeg, float verticalDeg);
@@ -38,6 +42,8 @@ private:
     ofPrimitiveMode m_mode;
     float           m_horizontalDeg;
     float           m_verticalDeg;
+    
+    bool            m_isInitialised;
     
 };
 
