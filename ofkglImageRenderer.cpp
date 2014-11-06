@@ -189,9 +189,11 @@ void ofkglImageRenderer::setUV(float* uvArray)
 
 void ofkglImageRenderer::internalDraw(float x, float y, float w, float h)
 {
-    if(mImage.bAllocated())
+    //HACK//if(mImage.bAllocated())
+    if(true)
     {
-        mImage.draw(x, y ,w, h); 
+        mTexture.draw(x, y ,w, h);
+//        mImage.draw(x, y ,w, h);
     }else
     {
         ofRect(x, y, w, h);
