@@ -52,11 +52,13 @@ void ofxSphereMeshRenderer::rednerDebug()
 {
     ofPushStyle();
     
-    ofSetColor(255, 255, 255, 100);
+    ofEnableAlphaBlending();
+    ofSetLineWidth(2.0);
+    ofSetColor(100, 100, 100, 50);
     mSphere.setMode(OF_PRIMITIVE_LINES);
     mSphere.draw();
     mSphere.setMode(OF_PRIMITIVE_TRIANGLES);
-    
+
     ofPopStyle();
     
 }
