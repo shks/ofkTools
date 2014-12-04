@@ -60,8 +60,7 @@ void ofxGlslEmaFilter::setupGLSL(int w, int h)
         cerr << "shader program could not be linked." << endl;
     }
 
-    output.allocate(w, h);
-
+   output.allocate(w, h, GL_RGB);
 }
 
 void ofxGlslEmaFilter::render()
